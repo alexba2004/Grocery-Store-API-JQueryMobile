@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <style>
+      /* Cambiar color de fondo del contenedor "container" */
+      .container {
+        background-color: #f1f2f6; /* Nuevo color de fondo */
+        max-width: 400px;
+        margin: 20px auto; /* Margen superior e inferior */
+        padding: 10px; /* Añadido para espacio alrededor del contenido */
+        border-radius: 10px; /* Bordes redondeados */
+      }
+
+      /* Cambiar color de fondo del contenedor "product-list-container" */
+      .product-list-container {
+        background-color: #fff; /* Nuevo color de fondo */
+        border-radius: 10px; /* Bordes redondeados */
+        margin-top: 20px; /* Margen superior */
+        padding: 10px; /* Espaciado interno */
+      }
+
+      /* Cambiar color de fondo del body */
+      body {
+        background-color: #3498db !important; /* Nuevo color de fondo */
+      }
+
+      /* Cambiar color de fondo del encabezado */
+      .ui-header {
+        background-color: #2c3e50 !important;
+        margin-top: 20px; /* Margen superior */
+        text-align: center; /* Alineación centrada */
+        border-top-left-radius: 10px; /* Bordes redondeados superiores */
+        border-top-right-radius: 10px; /* Bordes redondeados superiores */
+      }
+
+      /* Cambiar color de texto del encabezado */
+      .ui-header h1 {
+        color: #fff !important;
+        font-family: "Arial", sans-serif; /* Cambiar la fuente */
+        font-size: 24px; /* Tamaño de fuente */
+        text-transform: uppercase; /* Convertir texto a mayúsculas */
+      }
+
+      /* Cambiar color de fondo del pie de página */
+      .ui-footer {
+        background-color: #2c3e50 !important;
+        margin-bottom: 20px; /* Margen inferior */
+        border-bottom-left-radius: 10px; /* Bordes redondeados inferiores */
+        border-bottom-right-radius: 10px; /* Bordes redondeados inferiores */
+      }
+
+      /* Cambiar color de texto del pie de página */
+      .ui-footer h5 {
+        color: #fff !important;
+      }
+
+      /* Cambiar color de fondo del h1 */
+      h1 {
+        background-color: #2c3e50;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px; /* Bordes redondeados */
+      }
+
+      /* Nuevo contenedor */
+      .product-list-container {
+        background-color: #fff; /* Color de fondo */
+        border-radius: 5px; /* Bordes redondeados */
+        padding: 10px; /* Espaciado interno */
+        margin-top: 20px; /* Margen superior */
+      }
+
+      /* Estilo para el título de la lista de productos */
+      .product-list-title {
+        background-color: #2c3e50; /* Color de fondo */
+        color: #fff; /* Color de texto */
+        padding: 10px; /* Espaciado */
+        text-align: center; /* Alineación centrada */
+        border-radius: 5px; /* Bordes redondeados */
+        margin-bottom: 10px; /* Margen inferior */
+      }
+
+      /* Estilo para el título del formulario de búsqueda */
+      .search-title {
+        font-weight: bold; /* Negrita */
+        margin-bottom: 5px; /* Margen inferior */
+      }
+      /* Hacer que el footer esté siempre al final */
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* Mantener el título "Register Product" pegado arriba */
+      h1 {
+        margin-top: 0; /* Eliminar margen superior */
+      }
+
+      /* Footer */
+      [data-role="footer"] {
+        margin-top: auto; /* El footer se coloca automáticamente al final */
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <title>Abarrotes TI</title>
+  </head>
+
+  <body>
+    <!-- Título -->
+    <h1>Register Product</h1>
+
+    <!-- Contenedor centralizado -->
+    <div class="container">
+      <!-- Content -->
+      <div data-role="content">
+        <!-- Formulario de registro -->
+        <form action="/save" method="post">
+          <input type="text" name="barcode" placeholder="Barcode" />
+          <input type="text" name="description" placeholder="Description" />
+          <input type="text" name="brand" placeholder="Brand" />
+          <input type="number" name="price" placeholder="Precio " />
+          <input type="number" name="cost" placeholder="Costo" />
+          <input type="number" name="stock" placeholder="Existencias" />
+          <input type="date" name="expiredDate" placeholder="Fecha de Expiracion" />
+          <label for="flip-2">Estatus:</label>
+          <select name="status" id="flip-2" data-role="slider">
+            <option value="0">No</option>
+            <option value="1">Si</option>
+          </select>
+          <button type="submit" id="submit-6" class="ui-shadow ui-btn ui-corner-all ui-mini">Guardar</button>
+        </form>
+      </div>
+    </div>
+    <!-- Fin del contenedor -->
+
+    <!-- Título de la lista de productos -->
+    <h2 class="product-list-title">View Products</h2>
+
+    <!-- Contenedor para el formulario de búsqueda -->
+    <div class="container">
+      <!-- Título del formulario de búsqueda -->
+      <h3 class="search-title">Search Products</h3>
+      <!-- Formulario de búsqueda -->
+      <form>
+        <input data-type="search" id="searchForCollapsibleSetChildren" />
+      </form>
+    </div>
+
+    <!-- Lista de productos -->
+    <div class="product-list-container">
+      <div data-role="collapsibleset" data-filter="true" data-children="> div, > div div ul li" data-inset="true" id="collapsiblesetForFilterChildren" data-input="#searchForCollapsibleSetChildren">
+        <% products.forEach((product) => { %>
+        <div data-role="collapsible" data-filtertext="<%= products.description %>">
+          <h3><%= product.description %></h3>
+          <ul data-role="listview" data-inset="false">
+            <li>Codigo de barras: <%= product.barcode %></li>
+            <li>Marca: <%= product.brand %></li>
+            <li>Precio de venta: <%= product.price %></li>
+            <li>Precio de Compra: <%= product.cost %></li>
+            <li>Existencias: <%= product.stock %></li>
+            <li>Fecha de caducidad: <%= product.expiredDate %></li>
+            <li>Estatus: <%= product.status %></li>
+
+            <li><a href="/<%=product.barcode%>" class="ui-btn">Editar</a></li>
+            <li><a href="/delete/<%=product.barcode%>" class="ui-btn">Eliminar</a></li>
+          </ul>
+        </div>
+        <%})%>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div data-role="footer">
+      <h5>Developed by Briones</h5>
+    </div>
+  </body>
+</html>
