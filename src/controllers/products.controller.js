@@ -51,7 +51,7 @@ export const updateProduct = (req, res) => {
   productDao
     .updateProduct(req.params.bc, req.body)
     .then((result) => {
-      if (result) getAllProducts(req, res);
+      if (result) res.redirect("/");
     })
     .catch((err) => {
       res.json({
@@ -64,7 +64,7 @@ export const deleteProduct = (req, res) => {
   productDao
     .deleteProduct(req.params.bc)
     .then((result) => {
-      if (result) getAllProducts(req, res);
+      if (result) res.redirect("/");
     })
     .catch((err) => {
       res.json({
@@ -80,9 +80,9 @@ export const getOneDeleteProduct = (req, res) => {
     .then((product) => {
       if (product) {
         console.log("ELIMINADO");
-        getAllProducts(req, res);
+        res.redirect("/");
       } else {
-        getAllProducts(req, res);
+        res.render("../src/views/index.ejs", { products });
       }
     })
     .catch((err) => {
